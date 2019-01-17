@@ -1,25 +1,49 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
 
+
+function Table(props){
+  return <div>{props.name}</div>
+}
+
 class App extends Component {
+  state = { 
+    inputState: '',
+    a: 0,
+    b: 64,
+    todos: []
+  }
+
+  inputChange = (e) => {
+    this.setState({ inputState: e.target.value });
+  }
+
+  delay = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(function() {
+        resolve('HOBA!');
+      }, 2000)
+    });
+  }
+
+  someFunc = () =>{
+    console.log(this)
+  }
+
+  add = async () => {
+
+  }
+
   render() {
+    const todos = this.state.todos;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Table name={'LOH'}/>
+        <input type="text" onChange={this.inputChange} placeholder='add some todos'/>
+        <button onClick={this.someFunc}>Add</button>
+        {todos.map(function(item){
+            return <div>{item}</div>
+        })}
       </div>
     );
   }
