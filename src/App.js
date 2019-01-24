@@ -1,49 +1,51 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
 import './App.css';
 
 
-function Table(props){
-  return <div>{props.name}</div>
-}
 
 class App extends Component {
-  state = { 
-    inputState: '',
-    a: 0,
-    b: 64,
+  state = {
+    newTodo: "",
     todos: []
-  }
+  };
 
   inputChange = (e) => {
-    this.setState({ inputState: e.target.value });
-  }
+    this.setState({ newTodo: e.target.value }); 
+  };
 
-  delay = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(function() {
-        resolve('HOBA!');
-      }, 2000)
-    });
-  }
+  onAdd = () => {
+    const todos = this.state.todos
+    todos.push(this.state.newTodo);
+    this.setState({
+      todos
+    })
+  };
+  onDelete = (e) => {
+    
+    var array = this.state.todos;
+    var index = array.indexOf(e.target.value)
+    array.splice(index, 0);
+    this.setState({   
+      todos: array
+   });
+  };
 
-  someFunc = () =>{
-    console.log(this)
-  }
-
-  add = async () => {
-
-  }
-
+  add = async () => {};
   render() {
-    const todos = this.state.todos;
+    const mytodos = this.state.todos;
     return (
       <div>
-        <Table name={'LOH'}/>
-        <input type="text" onChange={this.inputChange} placeholder='add some todos'/>
-        <button onClick={this.someFunc}>Add</button>
-        {todos.map(function(item){
-            return <div>{item}</div>
+        <div className='car'></div>
+        <input onChange={this.inputChange} value={this.state.newTodo} />
+        <button onClick={this.onAdd}>Add</button>
+        {mytodos.map(function(item, index) {
+      
+          return <div key={index}>{item}<button onClick={this.onDelete}>del</button> </div> 
+          
+          
         })}
+        
       </div>
     );
   }
